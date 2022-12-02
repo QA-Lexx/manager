@@ -3,42 +3,75 @@ import org.junit.jupiter.api.Test;
 
 public class FilmManagerTest {
 
-    AddFilm film1 = new AddFilm(1, "Бладшот", 2022);
-    AddFilm film2 = new AddFilm(2, "Вперед", 2022);
-    AddFilm film3 = new AddFilm(3, "Отель Белград", 2022);
-    AddFilm film4 = new AddFilm(4, "Джентльмены", 2022);
-    AddFilm film5 = new AddFilm(5, "Человек-невидимка", 2022);
-    AddFilm film6 = new AddFilm(6, "Тролли. Мировой тур", 2022);
-    AddFilm film7 = new AddFilm(7, "Номер один", 2022);
-    AddFilm film8 = new AddFilm(8, "Фильм 8", 2022);
-    AddFilm film9 = new AddFilm(9, "Фильм 9", 2022);
-    AddFilm film10 = new AddFilm(10, "Фильм 10", 2022);
-
     @Test
-    public void addNewFilmTest() {
+    public void addAndShowFilms() {
         FilmManager manager = new FilmManager();
-        manager.save(film1);
 
-        AddFilm[] expected = {film1};
-        AddFilm[] actual = manager.getFilms();
+        manager.addFilm("film1");
+        manager.addFilm("film2");
+        manager.addFilm("film3");
+
+        String[] expected = {"film1", "film2", "film3"};
+        String[] actual = manager.findAll();
 
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void showAddedFilmsTest() {
+    public void showFilmsReverseOrderLessLimit() {
         FilmManager manager = new FilmManager();
-        manager.save(film1);
-        manager.save(film2);
-        manager.save(film3);
-        manager.save(film4);
-        manager.save(film5);
-        manager.save(film6);
-        manager.save(film7);
 
-        AddFilm[] expected = {film1, film2, film3, film4, film5, film6, film7};
-        AddFilm[] actual = manager.getFilms();
+        manager.addFilm("film1");
+        manager.addFilm("film2");
+        manager.addFilm("film3");
+
+        String[] expected = {"film3", "film2", "film1"};
+        String[] actual = manager.findLast(10);
 
         Assertions.assertArrayEquals(expected, actual);
     }
+
+    @Test
+    public void showFilmsReverseOrderEqualLimit() {
+        FilmManager manager = new FilmManager();
+
+        manager.addFilm("film1");
+        manager.addFilm("film2");
+        manager.addFilm("film3");
+        manager.addFilm("film4");
+        manager.addFilm("film5");
+        manager.addFilm("film6");
+        manager.addFilm("film7");
+        manager.addFilm("film8");
+        manager.addFilm("film9");
+        manager.addFilm("film10");
+
+        String[] expected = {"film10", "film9", "film8", "film7", "film6", "film5", "film4", "film3", "film2", "film1"};
+        String[] actual = manager.findLast(10);
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void showFilmsReverseOrderMoreLimit() {
+        FilmManager manager = new FilmManager();
+
+        manager.addFilm("film1");
+        manager.addFilm("film2");
+        manager.addFilm("film3");
+        manager.addFilm("film4");
+        manager.addFilm("film5");
+        manager.addFilm("film6");
+        manager.addFilm("film7");
+        manager.addFilm("film8");
+        manager.addFilm("film9");
+        manager.addFilm("film10");
+        manager.addFilm("film11");
+
+        String[] expected = {"film11", "film10", "film9", "film8", "film7", "film6", "film5", "film4", "film3", "film2"};
+        String[] actual = manager.findLast(10);
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
 }

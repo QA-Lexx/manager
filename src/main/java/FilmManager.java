@@ -1,10 +1,17 @@
 public class FilmManager {
-    private AddFilm[] films = new AddFilm[0];
+    private String[] films = new String[0];
+    private int limit;
 
-    private FilmManager manager;
+    public FilmManager() {
+        this.limit = 10;
+    }
 
-    public void save(AddFilm film) {
-        AddFilm[] tmp = new AddFilm[films.length + 1];
+    public FilmManager(int limit) {
+        this.limit = limit;
+    }
+
+    public void addFilm(String film) {
+        String[] tmp = new String[films.length + 1];
         for (int i = 0; i < films.length; i++) {
             tmp[i] = films[i];
         }
@@ -12,7 +19,22 @@ public class FilmManager {
         films = tmp;
     }
 
-    public AddFilm[] getFilms() {
+    public String[] findAll() {
         return films;
+    }
+
+    public String[] findLast(int limit) {
+        int resultLength;
+        if (films.length < limit) {
+            resultLength = films.length;
+        } else {
+            resultLength = limit;
+        }
+
+        String[] tmp = new String[resultLength];
+        for (int i = 0; i < tmp.length; i++) {
+            tmp[i] = films[films.length - 1 - i];
+        }
+        return tmp;
     }
 }
